@@ -1,32 +1,31 @@
 #!/bin/bash
 
-CUR_TIME=$(date)
-
-# TODO: move to cl arg
+# user settings
 LOG_FILE="/var/log/letsencrypt/renew.log"
 RENEW_CMD="/etc/letsencrypt/certbot-auto renew"
+MSG_FAIL="RENEWAL FAILURE"
+MSG_SUCCESS="RENEWAL SUCCESS"
 
-FAIL_MSG="RENEWAL FAILURE"
-SUCCESS_MSG="RENEWAL SUCCESS"
+CUR_TIME=$(date)
 
 # certbot needs control of :80, so stop apache
 service apache2 stop
 
 # send both stderr & stdout to logfile
-# this is important b/c sometimes there's useful info
+# this is important b/c sometimes there's useful debug info
 # in stdout during errors
 $RENEW_CMD &>> $LOG_FILE
-BOT_STATUS=$?
+RENEW_STATUS=$?
 
 service apache2 start
 
-# even though it's logging verbosely above,
-# make it easy to grep the basics
+# even though it's already logging verbosely,
+# make it easier to grep for the outcome
 # TODO: consider two logs: one simple, one verbose?
-if [ "$BOT_STATUS" != 0 ]; then
-        echo "$FAIL_MSG $CUR_TIME" >> $LOG_FILE
-        exit $BOT_STATUS
+if [ "$RENEW_STATUS" != 0 ]; then
+        echo "$MSG_FAIL $CUR_TIME" >> $LOG_FILE
 else
-        echo "$SUCCESS_MSG $CUR_TIME" >> $LOG_FILE
-        exit $BOT_STATUS
+        echo "$MSG_SUCCESS $CUR_TIME" >> $LOG_FILE
 fi
+
+exit $RENEW_STATUS
