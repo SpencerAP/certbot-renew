@@ -8,6 +8,14 @@ MSG_SUCCESS="RENEWAL SUCCESS"
 
 CUR_TIME=$(date)
 
+# make sure apache will restart ok
+apachectl configtest
+TEST_STATUS=$?
+if [ "$TEST_STATUS" != 0 ]; then
+        echo "$MSG_FAIL configtest $CUR_TIME" >> $LOG_FILE
+        exit 1
+fi
+
 # certbot needs control of :80
 service apache2 stop
 
