@@ -14,5 +14,7 @@ Place the `certbot-auto` script somewhere sensible (say, /etc/letsencrypt). Revi
 
 ## Next Steps
 - Run configtest before stopping Apache to increase the likelihood that it can be restarted safely
-- Research certbot's `--http-01-port` arg as an alternative to needing to stop Apache
+- Research certbot's `--http-01-port` arg as an alternative to stopping Apache
+- Only log stdout when there's a stderr (reduce noise in the log)
 - Consider exposing `$LOG_FILE` via CLI
+

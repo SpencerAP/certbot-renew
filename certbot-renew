@@ -8,7 +8,7 @@ MSG_SUCCESS="RENEWAL SUCCESS"
 
 CUR_TIME=$(date)
 
-# certbot needs control of :80, so stop apache
+# certbot needs control of :80
 service apache2 stop
 
 # send both stderr & stdout to logfile
@@ -21,7 +21,6 @@ service apache2 start
 
 # even though it's already logging verbosely,
 # make it easier to grep for the outcome
-# TODO: consider two logs: one simple, one verbose?
 if [ "$RENEW_STATUS" != 0 ]; then
         echo "$MSG_FAIL $CUR_TIME" >> $LOG_FILE
 else
