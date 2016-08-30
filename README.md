@@ -10,7 +10,7 @@ A simple bash script I use to automate the renewal of Let’s Encrypt SSL certif
 My certs were originally generated with `certbot-auto --standalone -d {domain}`, and stored in the default location. I run Apache.
 
 ## Usage
-Place the `certbot-auto` script somewhere sensible (say, /etc/letsencrypt), mod it executable, and add it to your crontab. Certbot currently recommends scheduling it to run twice a day, at a random minute your choosing.
+Place the `certbot-auto` script somewhere sensible (say, /etc/letsencrypt). Review the `$LOG_FILE` and `$RENEW_CMD` settings to make sure they're right for your system. Mod it executable, and add it to your crontab. Certbot currently recommends scheduling it to run twice a day, at a random minute your choosing.
 
 ## Next Steps
 - Run configtest before stopping Apache to increase the likelihood that it can be restarted safely
