@@ -14,7 +14,7 @@ Place the `certbot-auto` script somewhere sensible (say, /etc/letsencrypt). Revi
 
 ## Next Steps
 - <del>Run configtest before stopping Apache to increase the likelihood that it can be restarted safely</del> **DONE**
-- <del>Research certbot's `--http-01-port` arg as an alternative to stopping Apache</del> **NOPE**, those are for something else. The [webroot](https://certbot.eff.org/docs/using.html?highlight=webroot#webroot) plugin might be a good solution though.
+- <del>Research certbot's `--http-01-port` arg as an alternative to stopping Apache</del> **NOPE**, those are for something else. The [webroot](https://certbot.eff.org/docs/using.html#webroot) plugin might be a good solution though.
 - Just learned about certbot's pre/post hooks, which can be used to start/stop Apache *only* if the cert actually needs updating. Cool!
 - Only log stdout when there's a stderr (reduce noise in the log)
 - Consider exposing `$LOG_FILE` via CLI
